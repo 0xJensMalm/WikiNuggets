@@ -7,10 +7,13 @@
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
+  <div id="left-container">
+    <h1 class="header">Wikinuggets</h1>
+    <h2 class="sub-header">Your daily source of random brain nuggets.</h2>
+  </div>
     <div id="container">
         <div class="box">
-          <h1 class="header">Wikinuggets</h1>
-          <h2 class="sub-header">Your daily source of random nuggets of knowledge.</h2>
+          
             <div class="cards">
                 {% for article in articles %}
                     <a href="{{ article.url }}" target="_blank">
