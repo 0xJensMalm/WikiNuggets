@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const articleModal = document.getElementById('article-modal');
   const articleFrame = document.getElementById('article-frame');
   const closeModal = document.getElementById('close-modal');
+  
 
   // Toggle read articles list
   toggleReadArticlesButton.addEventListener('click', function() {
@@ -52,19 +53,20 @@ document.addEventListener('DOMContentLoaded', function() {
       articleModal.classList.add('hidden');
   });
 
-    rerollButton.addEventListener('click', function() {
-        fetch('/new_articles')
-            .then(response => response.json())
-            .then(newArticles => {
-                const cardElements = document.querySelectorAll('.card');
-                cardElements.forEach((cardElement, index) => {
-                    const newArticle = newArticles[index];
-                    cardElement.parentElement.href = newArticle.url;
-                    cardElement.querySelector('.card-title').textContent = newArticle.title;
-                    cardElement.querySelector('.card-excerpt').textContent = newArticle.first_sentence;
-                    cardElement.querySelector('.card-views').textContent = `views last month: ${newArticle.views}`;
-                    if (newArticle.img_url) {
-                        cardElement.querySelector('.card-thumb img').src = newArticle.img_url;
+  rerollButton.addEventListener('click', function() {
+    fetch('/new_articles')
+        .then(response => response.json())
+        .then(newArticles => {
+            const cardElements = document.querySelectorAll('.card');
+            cardElements.forEach((cardElement, index) => {
+                const newArticle = newArticles[index];
+                cardElement.parentElement.href = newArticle.url;
+                cardElement.querySelector('.card-title').textContent = newArticle.title;
+                cardElement.querySelector('.card-excerpt').textContent = newArticle.first_sentence;
+                cardElement.querySelector('.card-views').textContent = `Total views last month: ${newArticle.views}`;
+                cardElement.querySelector('.card-size').textContent = `Article length: ${newArticle.size}`;  // Add this line
+                if (newArticle.img_url) {
+                    cardElement.querySelector('.card-thumb img').src = newArticle.img_url;
                     }
                 });
             })

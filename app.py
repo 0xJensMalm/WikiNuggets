@@ -11,12 +11,46 @@ app = Flask(__name__)
 def fetch_random_wiki_article():
     headers = {'User-Agent': 'WikiNuggets/1.0 (https://github.com/0xJensMalm/WikiNuggets; jensmalm@gmail.com)'}
     res = requests.get('https://en.wikipedia.org/api/rest_v1/page/random/summary', headers=headers)
+    
+    def get_article_size_category(size):
+        if size >= 80000:
+            return "Very long"
+        elif 60000 <= size < 80000:
+            return "Long"
+        elif 30000 <= size < 60000:
+            return "Medium"
+        elif 15000 <= size < 30000:
+            return "Small"
+        elif 5000 <= size < 15000:
+            return "Very small"
+        else:
+            return "Tiny"
+
+
     if res.status_code == 200:
         data = res.json()
         title = data['title']
         first_sentence = data['extract'].split('. ')[0] + '.'
         img_url = data['originalimage']['source'] if 'originalimage' in data else None
         final_url = f"https://en.wikipedia.org/wiki/{title.replace(' ', '_')}"
+
+        size_url = f"https://en.wikipedia.org/w/api.php?action=query&format=json&titles={title.replace(' ', '_')}&prop=revisions&rvprop=size"
+        size_res = requests.get(size_url, headers=headers)
+
+        if size_res.status_code == 200:
+            size_data = size_res.json()
+            page = next(iter(size_data['query']['pages'].values()))
+            if 'revisions' in page:
+                article_size_bytes = page['revisions'][0]['size']
+                sys.stdout.write(f"Article size in bytes: {article_size_bytes}\n")  # Debugging line
+                article_size_category = get_article_size_category(article_size_bytes)
+                sys.stdout.write(f"Article size category: {article_size_category}\n")  # Debugging line
+
+
+            else:
+                article_size_category = "Unknown"
+        else:
+            article_size_category = "Unknown"
 
         end_date = datetime.now() - relativedelta(days=datetime.now().day)  # Last day of the previous month
         start_date = end_date - relativedelta(months=1)  # Last day of the month before the previous month
@@ -42,7 +76,8 @@ def fetch_random_wiki_article():
             'img_url': img_url,
             'first_sentence': first_sentence,
             'url': final_url,
-            'views': views_count
+            'views': views_count,
+            'size': article_size_category
         }
     else:
         return None
