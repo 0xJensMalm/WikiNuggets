@@ -31,15 +31,6 @@ body {
   padding: 5px;
 
 }
-
-.sub-header {
-  text-align: center;
-  margin-bottom: 30px;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-}
 #left-container {
   position: fixed; /* Fixed position */
   left: 0; /* Stick it to the left side */
