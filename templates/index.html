@@ -22,6 +22,22 @@
           </ul>
           <button id="reset-button">Reset</button>
         </div>
+        <div id="current-streak-box">
+            <img src="{{ url_for('static', filename='resources/flame-icon.svg') }}" alt="Flame" id="flame-icon">
+            <div id="current-streak">
+              <span>Current Streak:</span>
+              <span id="current-streak-days">0 days!</span>
+            </div>
+          </div>
+          <div id="signature-box">
+            <span>Made by Jens</span>
+            <a href="https://github.com/0xJensMalm/WikiNuggets/tree/master" target="_blank" id="github-link">
+              <img src="{{ url_for('static', filename='resources/github-icon.svg') }}" alt="GitHub" id="github-icon">
+            </a>
+          </div>
+          
+          
+          
       </div>
     <div id="container">
         <div class="box">

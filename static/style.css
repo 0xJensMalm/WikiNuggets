@@ -171,7 +171,6 @@ body {
     padding: 10px;
     border: 1px solid black;
     border-radius: 5px;
-    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2); 
   }
   #read-articles-list {
     margin-top: 20px;
@@ -179,7 +178,6 @@ body {
     border: 1px solid black;
     border-radius: 5px;
     list-style-type: none;  /* Removes bullet points */
-    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2); 
 }
 
 #read-articles-list h4 {
@@ -224,12 +222,52 @@ body {
   font-size: 0.8rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2); 
 }
 
 #reset-button:hover {
   background-color: #f2e8b8;
 }
+#current-streak-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+#flame-icon {
+  width: 40px;  /* Adjust the size as needed */
+  height: auto;
+  margin-right: 10px;
+}
+
+#current-streak {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#signature-box {
+  position: absolute; 
+  bottom: 0; 
+  left: 0; 
+  right: 0; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid black;
+  padding: 10px;
+}
+
+#github-link {
+  margin-left: 10px;
+}
+
+#github-icon {
+  width: 24px;  /* Adjust the size as needed */
+  height: auto;
+}
+
 
 #article-modal {
   position: fixed;
