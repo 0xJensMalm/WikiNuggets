@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wikinuggets</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+  <div id="left-container">
+    <h1 class="header">Wikinuggets</h1>
+    <h2 class="sub-header">Your daily source of random brain nuggets.</h2>
+  </div>
+    <div id="container">
+        <div class="box">
+          
+            <div class="cards">
+                {% for article in articles %}
+                    <a href="{{ article.url }}" target="_blank">
+                        <article class="card">
+                            <div class="card-thumb">
+                                {% if article.img_url %}
+                                    <img src="{{ article.img_url }}" alt="{{ article.title }}">
+                                {% endif %}
+                            </div>
+                            <div class="card-title">{{ article.title }}</div>
+                            <div class="card-excerpt">{{ article.first_sentence }}</div>
+                            <div class="card-views">views last month: {{ article.views }}</div>
+                        </article>
+                    </a>
+                {% endfor %}
+            </div>
+            <button id="reroll-button">Reroll</button>
+        </div>
+    </div>
+</body>
+</html>
