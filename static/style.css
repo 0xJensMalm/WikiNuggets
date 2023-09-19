@@ -165,10 +165,28 @@ body {
 #read-articles-list a:hover {
   text-decoration: underline;
 }
-  
-  .hidden {
+
+#toggle-read-articles {
+  margin-top: 20px;
+  background-color: #fff7ca;
+  border: 1px solid black;
+  border-radius: 5px;  /* Adjusted to make corners less rounded */
+  padding: 10px 20px;
+  font-family: 'Linux Libertine', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#toggle-read-articles:hover {
+  background-color: #f2e8b8;
+}
+
+
+.hidden {
     display: none;
   }
+
   
   
   
