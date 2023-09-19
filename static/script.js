@@ -24,16 +24,24 @@ function updateReadArticles() {
   });
 }
 
-
 document.addEventListener('DOMContentLoaded', function() {
     const rerollButton = document.getElementById('reroll-button');
     const toggleReadArticlesButton = document.getElementById('toggle-read-articles');
     const readArticlesList = document.getElementById('read-articles-list');
+    const resetButton = document.getElementById('reset-button');  // Add this line
+
 
     // Toggle read articles list
     toggleReadArticlesButton.addEventListener('click', function() {
         readArticlesList.classList.toggle('hidden');
     });
+    resetButton.addEventListener('click', function() {
+      readArticles = [];
+      totalArticles = 0;
+      currentStreak = 0;
+      updateUserStats();
+      updateReadArticles();
+  });
 
     rerollButton.addEventListener('click', function() {
         fetch('/new_articles')
@@ -88,4 +96,5 @@ document.addEventListener('DOMContentLoaded', function() {
             updateReadArticles();
         });
     });
+  
 });

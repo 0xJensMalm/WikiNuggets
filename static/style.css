@@ -181,6 +181,21 @@ body {
 #toggle-read-articles:hover {
   background-color: #f2e8b8;
 }
+#reset-button {
+  background-color: #fff7ca;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-family: 'Linux Libertine', serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#reset-button:hover {
+  background-color: #f2e8b8;
+}
+
 
 
 .hidden {
