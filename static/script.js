@@ -1,4 +1,4 @@
-// reroll button
+// Reroll button
 document.addEventListener('DOMContentLoaded', function() {
     const rerollButton = document.getElementById('reroll-button');
     
@@ -16,18 +16,21 @@ document.addEventListener('DOMContentLoaded', function() {
             cardElement.parentElement.href = newArticle.url;
             cardElement.querySelector('.card-title').textContent = newArticle.title;
             cardElement.querySelector('.card-excerpt').textContent = newArticle.first_sentence;
+            cardElement.querySelector('.card-views').textContent = `views last month: ${newArticle.views}`;  // Update views
             if (newArticle.img_url) {
-              cardElement.querySelector('.card-thumb img').src = newArticle.img_url;
+                cardElement.querySelector('.card-thumb img').src = newArticle.img_url;
             }
-          });
+        });
+
+
         })
         .catch(error => {
           console.error('Error fetching new articles:', error);
         });
     });
-  });
+});
 
-// save to json
+// Save to JSON
 document.addEventListener("DOMContentLoaded", function() {
     console.log("Card clicked!"); // for testing
     const cardElements = document.querySelectorAll(".card");
@@ -51,4 +54,4 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       });
     });
-  });
+});
