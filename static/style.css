@@ -182,6 +182,7 @@ body {
   background-color: #f2e8b8;
 }
 #reset-button {
+  margin-top: 10px;
   background-color: #fff7ca;
   border: 1px solid black;
   border-radius: 5px;
