@@ -25,22 +25,31 @@ function updateReadArticles() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const rerollButton = document.getElementById('reroll-button');
-    const toggleReadArticlesButton = document.getElementById('toggle-read-articles');
-    const readArticlesList = document.getElementById('read-articles-list');
-    const resetButton = document.getElementById('reset-button');  // Add this line
+  const rerollButton = document.getElementById('reroll-button');
+  const toggleReadArticlesButton = document.getElementById('toggle-read-articles');
+  const readArticlesList = document.getElementById('read-articles-list');
+  const resetButton = document.getElementById('reset-button');
+  const articleModal = document.getElementById('article-modal');
+  const articleFrame = document.getElementById('article-frame');
+  const closeModal = document.getElementById('close-modal');
 
+  // Toggle read articles list
+  toggleReadArticlesButton.addEventListener('click', function() {
+      readArticlesList.classList.toggle('hidden');
+  });
 
-    // Toggle read articles list
-    toggleReadArticlesButton.addEventListener('click', function() {
-        readArticlesList.classList.toggle('hidden');
-    });
-    resetButton.addEventListener('click', function() {
+  // Reset button functionality
+  resetButton.addEventListener('click', function() {
       readArticles = [];
       totalArticles = 0;
       currentStreak = 0;
       updateUserStats();
       updateReadArticles();
+  });
+
+  // Close modal functionality
+  closeModal.addEventListener('click', function() {
+      articleModal.classList.add('hidden');
   });
 
     rerollButton.addEventListener('click', function() {
@@ -66,10 +75,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const cardElements = document.querySelectorAll(".card");
     cardElements.forEach(card => {
-        card.addEventListener("click", function() {
+        card.addEventListener("click", function(event) {
+            event.preventDefault();  // Prevent the default link behavior
             const title = card.querySelector(".card-title").textContent;
             const firstSentence = card.querySelector(".card-excerpt").textContent;
             const url = card.closest('a').getAttribute('href');
+
+            // Open the article in a modal
+            articleFrame.src = url;
+            articleModal.classList.remove('hidden');
 
             fetch("/handle_click", {
                 method: "POST",
