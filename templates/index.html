@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Wikinuggets</title>
+    <title>WikiNuggets</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
     <div id="left-container">
-        <h1 class="header">Wikinuggets</h1>
+        <div class="header">
+            <h1>WikiNuggets</h1>
+            <p class="tagline">Daily nuggets of rare knowledge</p>
+          </div>
+          
         <div id="user-stats">
             <h3 class="stats-header">User Statistics</h3>
             <p>Total Articles Read: <span id="total-articles">0</span></p>
@@ -26,7 +30,7 @@
             <img src="{{ url_for('static', filename='resources/flame-icon.svg') }}" alt="Flame" id="flame-icon">
             <div id="current-streak">
               <span>Current Streak:</span>
-              <span id="current-streak-days">0 days!</span>
+              <span id="current-streak">0 days!</span>
             </div>
           </div>
           <div id="signature-box">

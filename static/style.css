@@ -21,6 +21,9 @@ body {
   color: black;
   font-family: 'Linux Libertine', serif;
 }
+.header-container {
+  text-align: center;
+}
 .header {
   text-align: center;
   margin-bottom: 15px;
@@ -29,8 +32,12 @@ body {
   border-left: 1px solid black;
   border-right: 1px solid black;
   padding: 5px;
+  background-color:#ecb74d;
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2); 
-
+}
+.tagline {
+  font-size: 0.8rem; /* Make it smaller than the main header */
+  margin-top: 3px; /* Add a little space above the tagline */
 }
 #left-container {
   position: fixed; /* Fixed position */
