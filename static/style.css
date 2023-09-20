@@ -185,10 +185,15 @@ body {
     border: 1px solid black;
     border-radius: 5px;
     list-style-type: none;  /* Removes bullet points */
+    max-height: 200px;  /* Set the maximum height to your desired value */
+    overflow-y: auto;  /* Show vertical scrollbar when content overflows */
 }
 
 #read-articles-list h4 {
     margin-bottom: 20px;  /* Adds space below the heading */
+    border-bottom: 1px solid #000000;  /* Add a 1px solid line */
+    padding-bottom: 10px;  /* Add some padding to give space below the text */
+    margin-bottom: 10px;  /* Add some margin to give space below the line */
 }
 
 #read-articles-list ul {
