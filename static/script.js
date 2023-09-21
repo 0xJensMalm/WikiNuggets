@@ -1,6 +1,7 @@
 // Initialize user statistics
 let totalArticles = 0;
 let currentStreak = 0;
+let remainingRerolls = 3;
 let readArticles = [];
 
 // Function to update user statistics on the page
@@ -18,7 +19,7 @@ function updateReadArticles() {
       const anchor = document.createElement('a');
       anchor.href = article.url;
       anchor.textContent = article.title;
-      anchor.target = '_blank';  // Opens the link in a new tab
+      anchor.target = '_blank';  
       listItem.appendChild(anchor);
       articleList.appendChild(listItem);
   });
@@ -33,47 +34,62 @@ document.addEventListener('DOMContentLoaded', function() {
   const articleFrame = document.getElementById('article-frame');
   const closeModal = document.getElementById('close-modal');
   
-
   // Toggle read articles list
   toggleReadArticlesButton.addEventListener('click', function() {
       readArticlesList.classList.toggle('hidden');
   });
-
+  
   // Reset button functionality
   resetButton.addEventListener('click', function() {
-      readArticles = [];
-      totalArticles = 0;
-      currentStreak = 0;
-      updateUserStats();
-      updateReadArticles();
-  });
+    readArticles = [];
+    totalArticles = 0;
+    currentStreak = 0;
+    remainingRerolls = 3;  // Reset the rerolls
+    rerollButton.textContent = `Reroll (rolls left: ${remainingRerolls})`;
+    rerollButton.disabled = false;  // Enable the reroll button
+    updateUserStats();
+    updateReadArticles();
+});
 
   // Close modal functionality
   closeModal.addEventListener('click', function() {
       articleModal.classList.add('hidden');
   });
 
+  // Reroll button text
+  rerollButton.textContent = `Reroll (rolls left: ${remainingRerolls})`;
+  
+  //Reroll click eventListener
   rerollButton.addEventListener('click', function() {
-    fetch('/new_articles')
-        .then(response => response.json())
-        .then(newArticles => {
-            const cardElements = document.querySelectorAll('.card');
-            cardElements.forEach((cardElement, index) => {
-                const newArticle = newArticles[index];
-                cardElement.parentElement.href = newArticle.url;
-                cardElement.querySelector('.card-title').textContent = newArticle.title;
-                cardElement.querySelector('.card-excerpt').textContent = newArticle.first_sentence;
-                cardElement.querySelector('.card-views').textContent = `Total views last month: ${newArticle.views}`;
-                cardElement.querySelector('.card-size').textContent = `Article length: ${newArticle.size}`;  // Add this line
-                if (newArticle.img_url) {
-                    cardElement.querySelector('.card-thumb img').src = newArticle.img_url;
+    if (remainingRerolls > 0) {
+        remainingRerolls--;
+        rerollButton.textContent = `Reroll (rolls left: ${remainingRerolls})`;
+        if (remainingRerolls === 0) {
+            rerollButton.disabled = true;
+        }
+        // Existing code for fetching new articles
+        fetch('/new_articles')
+            .then(response => response.json())
+            .then(newArticles => {
+                const cardElements = document.querySelectorAll('.card');
+                cardElements.forEach((cardElement, index) => {
+                    const newArticle = newArticles[index];
+                    cardElement.parentElement.href = newArticle.url;
+                    cardElement.querySelector('.card-title').textContent = newArticle.title;
+                    cardElement.querySelector('.card-excerpt').textContent = newArticle.first_sentence;
+                    cardElement.querySelector('.card-views').textContent = `Total views last month: ${newArticle.views}`;
+                    cardElement.querySelector('.card-size').textContent = `Article length: ${newArticle.size}`;
+                    if (newArticle.img_url) {
+                        cardElement.querySelector('.card-thumb img').src = newArticle.img_url;
                     }
                 });
             })
             .catch(error => {
                 console.error('Error fetching new articles:', error);
             });
-    });
+    }
+});
+
 
     const cardElements = document.querySelectorAll(".card");
     cardElements.forEach(card => {
