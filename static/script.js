@@ -8,9 +8,13 @@ function showLoadingPopup() {
     document.getElementById('loadingPopup').style.display = 'block';
 }
 
-// Function to hide the loading popup
 function hideLoadingPopup() {
-    document.getElementById('loadingPopup').style.display = 'none';
+    const popup = document.getElementById('loadingPopup');
+    popup.style.animation = 'zoomOut 0.5s forwards';
+    setTimeout(() => {
+        popup.style.display = 'none';
+        popup.style.animation = '';  // Reset the animation
+    }, 500);  // The duration of the animation
 }
 // Function to update user statistics on the page
 function updateUserStats() {
