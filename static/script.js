@@ -4,6 +4,14 @@ let currentStreak = 0;
 let remainingRerolls = 3;
 let readArticles = [];
 
+function showLoadingPopup() {
+    document.getElementById('loadingPopup').style.display = 'block';
+}
+
+// Function to hide the loading popup
+function hideLoadingPopup() {
+    document.getElementById('loadingPopup').style.display = 'none';
+}
 // Function to update user statistics on the page
 function updateUserStats() {
     document.getElementById('total-articles').textContent = totalArticles;
@@ -62,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
   //Reroll click eventListener
   rerollButton.addEventListener('click', function() {
     if (remainingRerolls > 0) {
+        showLoadingPopup();
         remainingRerolls--;
         rerollButton.textContent = `Reroll (rolls left: ${remainingRerolls})`;
         if (remainingRerolls === 0) {
@@ -71,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch('/new_articles')
             .then(response => response.json())
             .then(newArticles => {
+                hideLoadingPopup(); // Hide loading popup when response
                 const cardElements = document.querySelectorAll('.card');
                 cardElements.forEach((cardElement, index) => {
                     const newArticle = newArticles[index];
@@ -85,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             })
             .catch(error => {
+                hideLoadingPopup();  // Hide the loading popup in case of an error
                 console.error('Error fetching new articles:', error);
             });
     }
