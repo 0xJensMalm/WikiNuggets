@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const articleModal = document.getElementById('article-modal');
   const articleFrame = document.getElementById('article-frame');
   const closeModal = document.getElementById('close-modal');
+  const ratingStars = document.querySelector('.rating-stars');
   
   // Toggle read articles list
   toggleReadArticlesButton.addEventListener('click', function() {
@@ -63,10 +64,24 @@ document.addEventListener('DOMContentLoaded', function() {
     updateReadArticles();
 });
 
+
   // Close modal functionality
   closeModal.addEventListener('click', function() {
-      articleModal.classList.add('hidden');
+      ratingStars.style.display = 'inline-block';
   });
+  document.querySelectorAll('.rating-stars span').forEach(star => {
+    star.addEventListener('click', function() {
+        const rating = this.getAttribute('data-value');
+        
+        // TODO: Send the rating to the server (as described in previous steps)
+        
+        // After rating, hide the modal
+        articleModal.classList.add('hidden');
+        
+        // Optionally, hide the stars again so they're hidden the next time the modal opens
+        ratingStars.style.display = 'none';
+    });
+});
 
   // Reroll button text
   rerollButton.textContent = `Reroll (rolls left: ${remainingRerolls})`;

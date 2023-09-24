@@ -56,20 +56,20 @@ body {
 }
 
 #container { /* card container */
-  display: flex;
+  display: block;
   position:relative;
   justify-content: center;
   align-items: flex-start;
   margin-top: 0vh; /* margin to the top */
-  margin-left: 150px; /* margin to the left container/sidebar */
+  margin-left: 320px; /* margin to the left container/sidebar */
   width: 100%;
   height: 100vh;
-  position: relative;
+  max-width: calc(100% - 320px); /* Assuming 320px is the width of your left container including any borders or padding */
+  overflow: hidden; /* This will prevent any child elements from overflowing the container */
 }
 .box {
-  width: 100%;
-  max-width: 1000px; 
-  padding: 20px;  
+  display: block;
+  width: 100%; 
 }
 .box h1 {
   margin: 15px 0; 
@@ -82,16 +82,18 @@ body {
   margin-top: 50px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-between; /* This will space the cards evenly */
+  align-items: start; /* This will align the cards to the top */
   width: 100%;
 }
 
 .cards a { 
   color: black;
-  width: 30%;
+  width: calc(34.33% - 50px); /* This will give each card a width of 1/3 of the container minus x px for spacing */
+  margin: 0 10px; /* This will give each card a 10px margin on the left and right, totaling the 20px spacing we subtracted above */
   text-decoration: none;
   position: relative; 
-  padding-top: 45%;  /* 2:3 aspect ratio */
+  padding-top: 40%;  
  /* overflow: hidden; */
 }
 
@@ -99,7 +101,7 @@ body {
   /* Existing styles */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   position: absolute;
   top: 0;
   left: 0;
@@ -108,8 +110,6 @@ body {
   padding: 20px;
   background-color: #fff7ca;
   transition: transform .3s;
-
-  /* New styles from .modal */
   border: 3px solid black;  /* Increased border thickness */
   border-radius: 5px;  /* Slightly less rounded corners */
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
@@ -295,16 +295,18 @@ body {
 }
 
 #close-modal {
+  display: block;
   position: absolute;
   top: 10px;
   left: 10px; /* 10px ut fra venstre */
+  justify-content: space-between;
+  align-items: center;
   background: #f2e8b8;
   padding: 5px 10px;
   cursor: pointer;
   z-index: 3;
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2); 
 }
-
 #iframe {
   width: 100%;
   height: 100%;
@@ -380,8 +382,23 @@ body {
 @keyframes prog {
   to  {   width: 100%;}
 }
+.rating-stars {
+  display: inline-flex; /* Use flex to maintain order */
+  flex-direction: row-reverse; /* Reverse the order of items */
+}
 
-/* Additional Styles */
+.rating-stars span {
+  cursor: pointer;
+  margin-right: 5px;
+  color: black; /* Default color */
+  transition: color 0.3s; /* Smooth transition */
+}
+
+/* When hovering over a star, turn it and all previous stars yellow */
+.rating-stars span:hover,
+.rating-stars span:hover ~ span {
+  color: #ffea00;
+}
 .hidden {
   display: none;
 }
