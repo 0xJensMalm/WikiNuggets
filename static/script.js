@@ -8,9 +8,13 @@ function showLoadingPopup() {
     document.getElementById('loadingPopup').style.display = 'block';
 }
 
-// Function to hide the loading popup
 function hideLoadingPopup() {
-    document.getElementById('loadingPopup').style.display = 'none';
+    const popup = document.getElementById('loadingPopup');
+    popup.style.animation = 'zoomOut 0.5s forwards';
+    setTimeout(() => {
+        popup.style.display = 'none';
+        popup.style.animation = '';  // Reset the animation
+    }, 500);  // The duration of the animation
 }
 // Function to update user statistics on the page
 function updateUserStats() {
@@ -41,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const articleModal = document.getElementById('article-modal');
   const articleFrame = document.getElementById('article-frame');
   const closeModal = document.getElementById('close-modal');
+  const ratingStars = document.querySelector('.rating-stars');
   
   // Toggle read articles list
   toggleReadArticlesButton.addEventListener('click', function() {
@@ -59,10 +64,24 @@ document.addEventListener('DOMContentLoaded', function() {
     updateReadArticles();
 });
 
+
   // Close modal functionality
   closeModal.addEventListener('click', function() {
-      articleModal.classList.add('hidden');
+      ratingStars.style.display = 'inline-block';
   });
+  document.querySelectorAll('.rating-stars span').forEach(star => {
+    star.addEventListener('click', function() {
+        const rating = this.getAttribute('data-value');
+        
+        // TODO: Send the rating to the server (as described in previous steps)
+        
+        // After rating, hide the modal
+        articleModal.classList.add('hidden');
+        
+        // Optionally, hide the stars again so they're hidden the next time the modal opens
+        ratingStars.style.display = 'none';
+    });
+});
 
   // Reroll button text
   rerollButton.textContent = `Reroll (rolls left: ${remainingRerolls})`;
