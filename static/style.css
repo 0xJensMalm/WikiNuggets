@@ -210,24 +210,41 @@ body {
   text-decoration: underline;
 }
 
-#toggle-read-articles {
+.button-container {
+  display: flex;           /* Use flexbox to layout the buttons */
+  justify-content: center; /* Center the buttons horizontally */
+  gap: 10px;               /* Add some space between the buttons */
+  margin-top: 20px;
+}
+
+#toggle-read-articles, #toggle-interesting {
   margin-top: 20px;
   background-color: #fff7ca;
   border: 1px solid black;
   border-radius: 5px;  /* Adjusted to make corners less rounded */
-  padding: 10px 20px;
+  padding: 10px 10px;
   font-family: 'Linux Libertine', serif;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2); 
+  width: 180px;  /* Adjust this value as needed */
+  height: 40px;  /* Adjust this value as needed */
+  display: flex; /* To center the text inside the button */
+  align-items: center;
+  justify-content: center;
 }
 
 #toggle-read-articles:hover {
   background-color: #f2e8b8;
 }
+#toggle-interesting:hover {
+  background-color: #f2e8b8;
+}
+
+
 #reset-button {
-  margin-top: 10px;
+  margin-top: 0;
   background-color: #fff7ca;
   border: 1px solid black;
   border-radius: 5px;
@@ -292,21 +309,48 @@ body {
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 2;
   overflow-y: auto;
+
+}.article-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px; /* 10 ut mot høyre i main container */
+  z-index: 3;
+  display: flex;
+  flex-direction: column; /* Stack the buttons vertically */
+  gap: 1px; /* Space between the buttons */
 }
 
 #close-modal {
-  display: block;
-  position: absolute;
-  top: 10px;
-  left: 10px; /* 10px ut fra venstre */
-  justify-content: space-between;
-  align-items: center;
   background: #f2e8b8;
   padding: 5px 10px;
   cursor: pointer;
-  z-index: 3;
+  border: 2px solid black;
+  border-radius: 5px;
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2); 
 }
+
+#interesting-button {
+  background: #f2e8b8;
+  padding: 5px 10px;
+  align-items: center; /* Vertically center the text and the icon */
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 5px;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#interesting-button:hover {
+  background-color: #f2bf59;
+}
+
+#heart-icon {
+  width: 16px;  /* Adjust as needed */
+  height: auto;
+  margin-right: 5px; /* Space between the text and the heart icon */
+}
+
+
+
 #iframe {
   width: 100%;
   height: 100%;

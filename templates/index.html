@@ -18,8 +18,13 @@
             <p>Total Articles Read: <span id="total-articles">0</span></p>
             <p>Current Streak: <span id="current-streak">0</span> days</p>
         </div>
-        <button id="toggle-read-articles">Latest read articles</button>
-        <button id="toggle-favorite-articles">Favorite articles</button>
+
+        <div class="button-container">
+        <button id="toggle-read-articles">Article history</button>
+        <button id="toggle-interesting">Interesting stuff</button>
+        </div>
+        
+        
         <div id="read-articles-list" class="hidden">
           <h4>Articles You've Read:</h4>
           <ul id="article-list">
@@ -44,22 +49,20 @@
     <div id="container">
       <div id="loadingPopup" class="loading-popup">
         <div class="loading-content">
-            <p>Digging for Wikipedia gold</p>
+            <p>Digging for Wikipedia gold...</p>
             <span class="loadbar"></span>
         </div>
     </div>
     <div class="box">
       <div id="article-modal" class="hidden">
-          <button id="close-modal">
-              Close
-              <div class="rating-stars">
-                  <span data-value="5">★</span>
-                  <span data-value="4">★</span>
-                  <span data-value="3">★</span>
-                  <span data-value="2">★</span>
-                  <span data-value="1">★</span>
-              </div>
+        <div class="article-buttons">
+          <button id="close-modal">Close</button>
+          <button id="interesting-button">
+              Interesting! <img src="{{ url_for('static', filename='resources/heart.svg') }}" alt="heart" id="heart-icon">
           </button>
+      </div>
+      
+
           <iframe id="article-frame" src="" frameborder="0"></iframe>
       </div>
   </div>
