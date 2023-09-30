@@ -3,6 +3,7 @@ let totalArticles = 0;
 let currentStreak = 0;
 let remainingRerolls = 3;
 let readArticles = [];
+let currentArticle = {};
 
 function showLoadingPopup() {
     document.getElementById('loadingPopup').style.display = 'block';
@@ -23,20 +24,21 @@ function updateUserStats() {
 }
 
 
-// Function to update the list of read articles
-function updateReadArticles() {
-  const articleList = document.getElementById('article-list');
-  articleList.innerHTML = '';
-  readArticles.forEach(article => {
-      const listItem = document.createElement('li');
-      const anchor = document.createElement('a');
-      anchor.href = article.url;
-      anchor.textContent = article.title;
-      anchor.target = '_blank';  
-      listItem.appendChild(anchor);
-      articleList.appendChild(listItem);
-  });
+// Function to update the list of read articles or interesting articles
+function updateReadArticles(articles) {
+    const articleList = document.getElementById('article-list');
+    articleList.innerHTML = '';
+    articles.forEach(article => {
+        const listItem = document.createElement('li');
+        const anchor = document.createElement('a');
+        anchor.href = article.url;
+        anchor.textContent = article.title;
+        anchor.target = '_blank';  
+        listItem.appendChild(anchor);
+        articleList.appendChild(listItem);
+    });
 }
+
 
 
 
@@ -48,9 +50,30 @@ document.addEventListener('DOMContentLoaded', function() {
   const articleModal = document.getElementById('article-modal');
   const articleFrame = document.getElementById('article-frame');
   const closeModal = document.getElementById('close-modal');
-  
 
-  
+
+  function updateInterestingArticles(interestingArticles) {
+    const articleList = document.getElementById('interesting-articles-list'); // Assuming you have a separate list for interesting articles
+    articleList.innerHTML = '';
+    interestingArticles.forEach(article => {
+        const listItem = document.createElement('li');
+        const anchor = document.createElement('a');
+        anchor.href = article.url;
+        anchor.textContent = article.title;
+        anchor.target = '_blank';  
+        listItem.appendChild(anchor);
+        articleList.appendChild(listItem);
+    });
+}
+
+document.getElementById('toggle-interesting').addEventListener('click', function() {
+    // Fetch interesting articles from the backend
+    fetch('/get_interesting_articles')
+        .then(response => response.json())
+        .then(interestingArticles => {
+            updateReadArticles(interestingArticles);
+        });
+});
   
   // Toggle read articles list
   toggleReadArticlesButton.addEventListener('click', function() {
@@ -66,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
     rerollButton.textContent = `Reroll (rolls left: ${remainingRerolls})`;
     rerollButton.disabled = false;  // Enable the reroll button
     updateUserStats();
-    updateReadArticles();
+    updateReadArticles(readArticles);
 });
 
 
@@ -120,6 +143,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const firstSentence = card.querySelector(".card-excerpt").textContent;
             const url = card.closest('a').getAttribute('href');
 
+            // Store the current article details
+            currentArticle = {
+                title: title,
+                firstSentence: firstSentence,
+                url: url
+            };
+
             // Open the article in a modal
             articleFrame.src = url;
             articleModal.classList.remove('hidden');
@@ -146,10 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Update user statistics and read articles
             updateUserStats();
-            updateReadArticles();
+            updateReadArticles(readArticles);;
         });
     });
-
-    
-  
 });

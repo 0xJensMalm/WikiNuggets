@@ -120,5 +120,48 @@ def handle_click():
 
     return jsonify({'message': 'Click handled'})
 
+@app.route('/mark_interesting', methods=['POST'])
+def mark_interesting():
+    data = request.json
+    title = data['title']
+    url = data['url']
+
+    # Load the articles from articles.json
+    try:
+        with open('articles.json', 'r') as f:
+            articles_data = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        articles_data = []
+
+    # Check if the article already exists
+    article_exists = False
+    for article in articles_data:
+        if article['title'] == title and article['url'] == url:
+            article['interesting'] = 'yes'
+            article_exists = True
+            break
+
+    # If the article doesn't exist, add it with the "interesting" field set to "yes"
+    if not article_exists:
+        articles_data.append({
+            'title': title,
+            'url': url,
+            'interesting': 'yes'
+        })
+
+    # Save the changes to articles.json
+    with open('articles.json', 'w') as f:
+        json.dump(articles_data, f, indent=4)
+
+    return jsonify(success=True)
+
+
+@app.route('/get_interesting_articles', methods=['GET'])
+def get_interesting_articles():
+    interesting_articles = [article for article in articles if article.get('interesting') == 'yes']
+    return jsonify(interesting_articles)
+
+
+
 if __name__ == "__main__":
     app.run(port=3000, debug=True)
