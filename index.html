@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WikiNuggets</title>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+<body>
+    <div id="left-container">
+        <div class="header">
+            <h1>WikiNuggets</h1>
+            <p class="tagline">Daily nuggets of rare knowledge</p>
+        </div>
+
+        <div id="user-stats">
+            <h3 class="stats-header">User Statistics</h3>
+            <p>Total Articles Read: <span id="total-articles">0</span></p>
+            <p>Current Streak: <span id="current-streak-value">0</span> days</p>
+        </div>
+
+        <button id="toggle-read-articles">Toggle Read Articles</button>
+        <div id="read-articles-list" class="hidden">
+            <h4>Articles You've Read:</h4>
+            <ul id="article-list">
+                <!-- List items will be added here dynamically -->
+            </ul>
+            <button id="reset-button">Reset</button>
+        </div>
+
+        <div id="current-streak-box">
+            <img src="static/resources/flame-icon.svg" alt="Flame" id="flame-icon">
+            <div id="current-streak">
+                <span>Current Streak:</span>
+                <span id="current-streak-value-sidebar">0 days!</span>
+            </div>
+        </div>
+        <div id="signature-box">
+            <span>Made by Jens</span>
+            <a href="https://github.com/0xJensMalm/WikiNuggets/tree/master" target="_blank" id="github-link">
+                <img src="static/resources/github-icon.svg" alt="GitHub" id="github-icon">
+            </a>
+        </div>
+    </div>
+
+    <div id="container">
+        <div id="loadingPopup" class="loading-popup">
+            <div class="loading-content">
+                <p>Digging for Wikipedia gold</p>
+                <span class="loadbar"></span>
+            </div>
+        </div>
+
+        <div class="box">
+            <div id="article-modal" class="hidden">
+                <button id="close-modal">Close</button>
+                <iframe id="article-frame" src="" frameborder="0"></iframe>
+            </div>
+
+            <div class="cards" id="cards">
+                <!-- Cards will be rendered here -->
+            </div>
+            <button id="reroll-button">Reroll</button>
+        </div>
+    </div>
+
+    <script src="static/script.js"></script>
+</body>
+</html>
+
+
