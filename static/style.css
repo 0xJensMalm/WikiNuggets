@@ -1,7 +1,7 @@
 @charset "utf-8";
 @font-face {
   font-family: "Linux Libertine";
-  src: url("/static/LinLibertine.ttf");
+  src: url("./LinLibertine.ttf");
   font-weight: normal;
   font-style: normal;
 }
